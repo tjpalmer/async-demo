@@ -1,38 +1,30 @@
-// use futures::future::try_join_all;
+use futures::future::try_join_all;
 use reqwest::Client;
-use serde_json;
+use serde_json::Value;
 use std::{error::Error, time::Instant};
 use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let client = Client::builder().build()?;
+    // Start timing.
     let now = Instant::now();
-    // Get results.
-    let mut results = Vec::new();
-    // let mut gets = Vec::new();
-    for id in 0..20 {
-        // let address = format!("{}/{}", base, i);
-        // let get = client.get(&address).send();
+    // Get value.
+    let mut gets = Vec::new();
+    for id in 1..=100 {
         let get = get_todo(&client, id);
-        // gets.push(get);
-        // let result: serde_json::Value = get.await?.json().await?;
-        results.push(get.await?);
+        gets.push(get);
     }
-    // let results = try_join_all(gets).await?;
-    // for get in awaited_gets {
-    //     let result: serde_json::Value = get.json().await?;
-    //     results.push(result);
-    // }
-    let _ = get_todo(&client, 1);
-    println!("Elapsed: {}ms", now.elapsed().as_millis());
-    println!("{:#?}", results.last().unwrap());
+    let results = try_join_all(gets).await?;
+    // Report time and result.
+    println!("Elapsed: {} seconds", now.elapsed().as_secs_f64());
+    println!("Result: {:#?}", results.last().unwrap());
     Ok(())
 }
 
-async fn get_todo(client: &Client, id: i32)
-        -> Result<serde_json::Value, Box<dyn Error>> {
+async fn get_todo(client: &Client, id: i32) -> Result<Value, Box<dyn Error>> {
     let base = "https://jsonplaceholder.typicode.com/todos";
     let address = format!("{}/{}", base, id);
-    Ok(client.get(&address).send().await?.json().await?)
+    let result = client.get(&address).send().await?.json().await?;
+    Ok(result)
 }
