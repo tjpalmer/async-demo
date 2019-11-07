@@ -4,7 +4,7 @@ At the moment this is just for Rust, but I might expand it to other languages in
 
 See also:
 
-- TODO My YouTube video that walks through this demo
+- [My YouTube video that walks through this demo](https://youtu.be/xnIDyMJZ4ws)
 - [Rust async/await beta announcement](https://blog.rust-lang.org/2019/09/30/Async-await-hits-beta.html)
 - [Tokio runtime](https://github.com/tokio-rs/tokio)
 - [Reqwest library, including the example my Rust demo is based on](https://github.com/seanmonstar/reqwest)
