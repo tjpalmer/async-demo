@@ -9,9 +9,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let client = Client::builder().build()?;
     // Start timing.
     let now = Instant::now();
-    // Get value.
+    // Get values.
     let mut gets = Vec::new();
-    for id in 1..=100 {
+    // Default to few requests to be nice to jsonplaceholder.
+    for id in 1..=3 {
         let get = get_todo(&client, id);
         gets.push(get);
     }
