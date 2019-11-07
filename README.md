@@ -1,6 +1,6 @@
 # Async/Await Demo
 
-At the moment this is just for Rust, but I might expand it to other languages in the future. The Rust demo is initially based on the reqwest readme example.
+At the moment this is just for Rust, but I might expand it to other languages in the future.
 
 See also:
 
