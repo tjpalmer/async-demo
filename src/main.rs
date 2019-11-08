@@ -2,7 +2,6 @@ use futures::future::try_join_all;
 use reqwest::Client;
 use serde_json::Value;
 use std::{error::Error, time::Instant};
-use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
